@@ -32,7 +32,7 @@ soundatlas/
 │       └── js.js              # Scripts de registro y login
 └── README.md                  # Documentación del proyecto
 
-
+```
 
 ## Instalación y ejecución
 
