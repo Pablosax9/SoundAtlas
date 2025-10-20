@@ -16,16 +16,22 @@ El usuario puede registrarse, iniciar sesión y más adelante guardar sus favori
 ---
 
 ## Estructura del proyecto
+```text
 soundatlas/
 ├── backend/
-│ ├── config/db.php
-│ └── api/register.php
-│ └── api/login.php
+│   ├── config/
+│   │   └── db.php             # Conexión a la base de datos
+│   └── api/
+│       ├── register.php       # Registro de usuarios
+│       └── login.php          # Login de usuarios
 ├── frontend/
-│ ├── index.html
-│ ├── css/style.css
-│ └── js/js.js
-└── README.md
+│   ├── index.html             # Página principal con registro y login
+│   ├── css/
+│   │   └── style.css          # Estilos de la página
+│   └── js/
+│       └── js.js              # Scripts de registro y login
+└── README.md                  # Documentación del proyecto
+
 
 
 ## Instalación y ejecución
