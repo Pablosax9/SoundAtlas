@@ -1,26 +1,41 @@
 <?php
-include_once "../config/db.php";
+header('Content-Type: application/json');
+session_start();
+require_once __DIR__ . '/../config/db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $sql = "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    if(!$stmt){
-        die("Error en prepare: " . $conn->error);
+    $nombre = trim($_POST['userName'] ?? '');
+    $email = trim($_POST['userEmail'] ?? '');
+    $password = trim($_POST['userPassword'] ?? '');
+
+    if (!$nombre || !$email || !$password) {
+        echo json_encode(["status" => "error", "message" => "Todos los campos son obligatorios"]);
+        exit();
     }
-    
-    $stmt->bind_param("sss", $nombre, $email, $password);
+
+    //Verificar si el email ya existe
+    $stmt = $conn->prepare("SELECT id FROM usuarios WHERE userEmail = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        echo json_encode(["status" => "error", "message" => "El email ya está registrado"]);
+        exit();
+    }
+
+    //Insertar usuario
+    $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO usuarios (userName, userEmail, userPassword, created_at) VALUES (?, ?, ?, NOW())");
+    $stmt->bind_param("sss", $nombre, $email, $hashPassword);
 
     if ($stmt->execute()) {
-        echo json_encode(["status" => "success", "message" => "Usuario registrado"]);
+        echo json_encode(["status" => "success", "message" => "Usuario registrado correctamente"]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Error al registrar: " . $stmt->error]);
+        echo json_encode(["status" => "error", "message" => "Error al registrar usuario"]);
     }
-    $stmt->close();
-    $conn->close();
-}
-?>
 
+} else {
+    echo json_encode(["status" => "error", "message" => "Método no permitido"]);
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/SoundAtlas/frontend/css/style.css">
+    <link rel="stylesheet" href="/SoundAtlas/frontend/css/inicio.css">
+    
+    <title>Inicio - SoundAtlas</title>
+</head>
+<body class="home-page">
+
+    <header>
+        <div class="nav-logo">
+            <img src="img/logo.png" alt="SoundAtlas"> 
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#" class="active" onclick="loadDiscovery()" id="navDiscover">Descubrir</a></li>
+                <li><a href="#" onclick="loadTrends()" id="navTrends">Tendencias</a></li>
+                <li><a href="#" onclick="loadTopArtists()" id="navArtists">Artistas</a></li>
+                <li><a href="#" id="btnMyLists">Mis Listas</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-menu" id="userMenuBtn">
+            <span class="user-name" id="navUserName">Cargando...</span>
+            <div class="user-avatar">
+                <i class='bx bxs-user'></i>
+            </div>
+
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="perfil.html"><i class='bx bx-user-circle'></i> Mi Perfil</a>
+                <a href="#" id="btnLogout"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        
+        <div class="hero-banner">
+            <div class="hero-text">
+                <h1>Hola, <span id="heroUserName">Usuario</span></h1>
+                <p>¿Qué quieres escuchar o aprender hoy?</p>
+                
+                <div class="search-box" style="margin-top: 20px; display: flex; gap: 10px;">
+                    <input type="text" id="searchInput" placeholder="Busca un artista, instrumento..." 
+                        style="padding: 10px; border-radius: 20px; border: none; width: 300px; outline: none;">
+                    <button id="searchBtn" style="padding: 10px 20px; border-radius: 20px; border: none; background: #333; color: white; cursor: pointer;">
+                        <i class='bx bx-search'></i> Buscar
+                    </button>
+                </div>
+            </div>
+            <i class='bx bxs-music' style="font-size: 5rem; opacity: 0.5;"></i>
+        </div>
+
+        <div class="results-wrapper">
+            
+            <div class="section-title">
+                <h3>Recomendado para ti</h3>
+                <i class='bx bx-chevron-right'></i>
+            </div>
+
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img" style="background-color: #ffcccc;"></div>
+                    <h4>Lo mejor del Pop</h4>
+                    <p>Lista de reproducción</p>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-color: #ccffcc;"></div>
+                    <h4>Rock Clásico</h4>
+                    <p>Lista de reproducción</p>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-color: #ccccff;"></div>
+                    <h4>Novedades 2024</h4>
+                    <p>Varios Artistas</p>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-color: #ffffcc;"></div>
+                    <h4>Jazz & Blues</h4>
+                    <p>Relax total</p>
+                </div>
+            </div>
+
+        </div> </div>
+        <div id="saveModal" class="modal-overlay">
+
+
+        <div class="modal-content">
+            <h3>Guardar en...</h3>
+            <p id="modalSongTitle" style="color:#9191bd; margin-bottom:15px;">Canción</p>
+            
+            <select id="listSelect">
+                <option value="">❤️ Favoritos Generales</option>
+                </select>
+
+            <div class="modal-buttons">
+                <button onclick="closeModal()" class="btn-cancel">Cancelar</button>
+                <button id="btnConfirmSave" class="btn-save">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-row">
+                <div class="footer-col">
+                    <h4>SoundAtlas</h4>
+                    <p>Explora, descubre y organiza tu música favorita con la mejor calidad de datos.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Explorar</h4>
+                    <ul>
+                        <li><a href="#" onclick="loadDiscovery()">Géneros</a></li>
+                        <li><a href="#" onclick="loadTrends()">Tendencias</a></li>
+                        <li><a href="#" onclick="loadTopArtists()">Artistas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Términos</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-github'></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SoundAtlas. Proyecto DAW.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/SoundAtlas/frontend/js/inicio.js"></script>
+    <script src="/SoundAtlas/frontend/js/api.js"></script>
+</body>
+</html>

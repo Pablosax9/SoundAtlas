@@ -1,66 +1,296 @@
-/* Estilo general */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin: 0;
-    padding: 20px;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('/SoundAtlas/frontend/img/2.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
-/* Títulos */
-h1 {
-    color: #333;
-    margin-bottom: 30px;
+.container-form {
+  display: flex;
+  border-radius: 20px;
+  box-shadow: 0 5px 7px rgba(0,0,0,0.1);
+  height: 500px;
+  max-width: 900px;
+  transition: all 1s ease;
+  margin: 10px;
 }
 
-h2 {
-    color: #555;
-    margin-top: 20px;
+.information {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  background-color: #c7eef3;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
-/* Formularios */
-form {
-    background-color: #fff;
-    padding: 20px 30px;
+.info-childs {
+  width: 100%;
+  padding: 0 30px;
+}
+
+.info-childs h2 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.info-childs p {
+  margin: 15px 0 ;
+  color: #555;
+}
+
+.info-childs input {
+  background-color: transparent;
+  outline: none;
+  border: solid 2px #9191bd;
+  border-radius: 20px;
+  padding: 10px 20px;
+  color: #9191bd;
+  cursor: pointer;
+  transition: background-color .3s ease;
+}
+
+.info-childs input:hover {
+  background-color: #9191bd;
+  border: none;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form-information {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 100%;
+}
+
+.form-information-childs {
+  padding: 0 30px;
+}
+
+.form-information-childs h2 {
+  color: #333;
+  font-size: 2rem;
+}
+
+.form-information-childs p {
+  color: #555;
+}
+
+.icons {
+  margin: 15px 0;
+}
+
+.icons i {
+  border-radius: 50%;
+  padding: 15px;
+  cursor: pointer;
+  margin: 0 10px;
+  color: #9191bd;
+  border: solid thin #9191bd;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.icons i:hover {
+  background-color: #c7c7f3;
+  color: #fff;
+}
+
+.form {
+  margin: 30px 0 0 0;
+}
+
+.form label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  padding: 0 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form label input {
+  width: 100%;
+  padding: 10px;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  color: #333;
+}
+
+.form label i {
+  color: #a7a7a7;
+}
+
+.form input[type="submit"] {
+  background-color: #9191bd;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.form input[type="submit"]:hover {
+  background-color: #7a7a9a;
+}
+
+.hide {
+  position: absolute;
+  transform: translateY(-300%);
+}
+
+/* RESPONSIVE */
+@media screen and (max-width:750px) {
+  html { font-size: 12px; }
+}
+@media screen and (max-width:580px) {
+  html { font-size: 15px; }
+  .container-form { flex-direction: column; height:auto; }
+  .information { width:100%; border-radius:20px 20px 0 0; padding:20px; }
+  .form-information { width:100%; border-radius:0 0 20px 20px; padding:20px; }
+}
+.logo {
+    display: block;
+    margin: 20px auto 0 auto; /*Centra horizontalmente y deja espacio arriba*/
+    width: 290px;      
+    height: auto;             /*Mantiene la proporción*/
+}
+
+
+
+/*ESTILOS PARA EL PANEL DE BIENVENIDA DE COLUMNA ÚNICA (#userPanel)*/
+
+.user-welcome-panel {
+    /*Forzar que la única columna ocupe el 100% y centrar el contenido*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*Aplicar colores del lado del formulario (blanco) en todo el panel*/
+    background-color: #f8f8f8; 
+    border-radius: 20px; /*Asegurar que los bordes redondeados se apliquen en toda la caja*/
+    width: 100%; /*Permitir que tome el ancho máximo de 900px*/
+    
+}
+
+/*Modificar la clase form-information para que ocupe todo el ancho del nuevo panel*/
+.user-welcome-panel .user-information-single {
+    width: 100%;
+    /*Eliminar los bordes a la derecha que la clase form-information suele tener*/
+    border-radius: 20px; 
+}
+
+/*Estilo para el contenedor de detalles del usuario*/
+.user-details-single {
+    margin: 30px 0 20px 0;
+    padding: 15px;
+    background-color: #f0f0f0; /*Fondo ligeramente gris para destacar los datos*/
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-    width: 300px;
+    border: 1px solid #ddd;
 }
 
-/* Inputs */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+.user-details-single h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
 }
 
-/* Botones */
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
+.user-details-single span {
+    font-weight: 600;
+    color: #9191bd;
+}
+
+/*Estilo del botón de Cerrar Sesión (simulando los inputs de submit/botón)*/
+.user-logout-button {
+    background-color: #9191bd;
+    color: #fff;
+    border-radius: 20px;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
-    font-size: 16px;
+    margin-top: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    outline: none;
 }
 
-button:hover {
-    background-color: #0056b3;
+.user-logout-button:hover {
+    background-color: #7a7a9a;
 }
 
-/* Mensajes alert estilo modal simple */
-.alert {
-    margin-top: 10px;
-    color: red;
-    font-weight: bold;
+/*Ajuste del logo para que mantenga el estilo de centrado*/
+.user-welcome-panel .logo {
+    width: 150px; /*Tamaño un poco más pequeño para una columna simple*/
+    margin: 20px auto;
+}
+
+/*RESPONSIVE: Asegurar que el panel se vea bien en móviles*/
+@media screen and (max-width:580px) {
+    .user-welcome-panel {
+        padding: 10px;
+    }
+}
+
+
+/*ESTILOS DE ALERTAS FORMULARIO*/
+.alerta-error,
+.alerta-exito {
+    display: none; /*Oculto por defect */
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.alerta-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alerta-exito {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/*Clase para mostrar la alerta con JS */
+.alerta-visible {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/*ESTILOS ICONOS SOCIALES*/
+.icons i {
+    cursor: pointer; /* Manita al pasar por encima */
 }

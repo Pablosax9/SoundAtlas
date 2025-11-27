@@ -1,34 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>SoundAtlas</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/SoundAtlas/frontend/css/style.css">
+
+    <title>Formulario Registro e Inicio Sesión</title>
 </head>
 <body>
-  <h1>Bienvenido a SoundAtlas</h1>
 
-  <h2>Registro</h2>
-  <form id="registerForm">
-    <input type="text" name="nombre" placeholder="Nombre" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <button type="submit">Registrar</button>
-  </form>
+    <div class="container-form register">
+        <div class="information">
+            <div class="info-childs">
+                <h2>Bienvenido</h2>
+                <p>Para unirte a la comunidad de SoundAtlas, por favor inicia sesión con tus datos</p>
+                <img src="img/logo.png" alt="Logo SoundAtlas" class="logo">
+                <input type="button" value="Iniciar Sesión" id="sign-in">
+            </div>
+        </div>
+        <div class="form-information">
+            <div class="form-information-childs">
+                <h2>Crear una Cuenta</h2>
+                <div class="icons">
+                    <i class='bx bxl-google'></i>
+                    <i class='bx bxl-github'></i>
+                    <i class='bx bxl-linkedin' ></i>
+                </div>
+                <p>o usa tu email para registrarte</p>
+                <form class="form form-register" novalidate>
+                    <div>
+                        <label>
+                            <i class='bx bx-user'></i>
+                            <input type="text" placeholder="Nombre Usuario" name="userName" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-envelope'></i>
+                            <input type="email" placeholder="Correo Electronico" name="userEmail" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-lock-alt'></i>
+                            <input type="password" placeholder="Contraseña" name="userPassword" required>
+                        </label>
+                    </div>
+                    <input type="submit" value="Registrarse">
+                    <div class="alerta-error">Todos los campos son obligatorios</div>
+                    <div class="alerta-exito">Te registraste correctamente</div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-  <h2>Login</h2>
-  <form id="loginForm">
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Contraseña" required>
-    <button type="submit">Iniciar sesión</button>
-  </form>
+    <div class="container-form login hide">
+        <div class="information">
+            <div class="info-childs">
+                <h2>¡Bienvenido nuevamente!</h2>
+                <p>Para unirte a la comunidad de SoundAtlas, por favor inicia sesión con tus datos</p>
+                <img src="img/logo.png" alt="Logo SoundAtlas" class="logo">
+                <input type="button" value="Registrarse" id="sign-up">
+            </div>
+        </div>
+        <div class="form-information">
+            <div class="form-information-childs">
+                <h2>Iniciar Sesión</h2>
+                <div class="icons">
+                    <i class='bx bxl-google'></i>
+                    <i class='bx bxl-github'></i>
+                    <i class='bx bxl-linkedin'></i>
+                </div>
+                <p>o inicia sesión con una cuenta</p>
+                <form class="form form-login" novalidate>
+                    <div>
+                        <label>
+                            <i class='bx bx-envelope'></i>
+                            <input type="email" placeholder="Correo Electronico" name="userEmail" required>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <i class='bx bx-lock-alt'></i>
+                            <input type="password" placeholder="Contraseña" name="userPassword" required>
+                        </label>
+                    </div>
+                    <input type="submit" value="Iniciar Sesión">
+                    <div class="alerta-error">Todos los campos son obligatorios</div>
+                    <div class="alerta-exito">Has iniciado sesión correctamente</div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-  <!-- Panel de usuario -->
-  <div id="userPanel" style="display:none; margin-top:20px; padding:10px; border:1px solid #ccc; border-radius:5px;">
-    <h3>Bienvenido, <span id="userName"></span></h3>
-    <p>Email: <span id="userEmail"></span></p>
-  </div>
+    <div id="userPanel" class="container-form hide" style="background-color: white; padding: 20px; text-align: center;">
+        <div class="form-information" style="width: 100%;">
+            <div class="form-information-childs">
+                <h2>¡Login Exitoso!</h2>
+                <img src="img/logo.png" alt="Logo SoundAtlas" class="logo" style="width: 100px; margin: 20px auto;">
+                
+                <h3>Bienvenido, <span id="userNameDisplay" style="color: #2c3e50;">Usuario</span></h3>
+                <p>Tu email es: <span id="userEmailDisplay">email@ejemplo.com</span></p>
+                
+                <br>
+                <button id="btnLogout" style="padding: 10px 20px; cursor: pointer;">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
 
-  <!-- Enlazamos el archivo JS externo -->
-  <script src="js/js.js"></script>
+    <script src="/SoundAtlas/frontend/js/app.js"></script>
 </body>
 </html>
