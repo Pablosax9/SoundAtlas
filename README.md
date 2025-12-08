@@ -73,7 +73,7 @@ SoundAtlas/
 ├── index.html        # Landing Page (Login/Registro)
 ├── inicio.html       # Aplicación Principal (Dashboard)
 └── perfil.html       # Panel de Usuario y Configuración
-
+```
 ## ✒️ Autor
 
 **Pablo Rodríguez Crespo** -Alumno de 2º DAW IES Fernando Wirtz- _Pablosax9_
