@@ -317,3 +317,66 @@ header {
     .footer-container { padding: 0 20px; }
     .footer-col { min-width: 100%; text-align: center; }
 }
+
+/* =========================================
+   ESTILOS PARA BOTONES DEL MODAL (DETALLES)
+   ========================================= */
+
+/* Contenedor para alinear los botones */
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio entre los botones */
+    margin-top: 25px;
+}
+
+/* 1. Botón "Ver en Deezer" (Estilo Premium Dark) */
+.btn-deezer {
+    background: linear-gradient(45deg, #323232, #1a1a1a); /* Negro elegante */
+    color: white !important; /* Forzamos color blanco */
+    padding: 10px 25px;
+    border-radius: 30px; /* Forma de píldora */
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-deezer:hover {
+    transform: translateY(-3px); /* Se eleva */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    color: #fff !important;
+}
+
+/* 2. Botón "Cerrar" (Estilo Outline/Bordeado Morado) */
+.btn-close-nice {
+    background-color: transparent;
+    color: #9191bd; /* Texto morado */
+    border: 2px solid #9191bd; /* Borde morado */
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-close-nice:hover {
+    background-color: #9191bd; /* Se rellena de morado */
+    color: #fff; /* Texto blanco */
+    box-shadow: 0 4px 10px rgba(145, 145, 189, 0.4);
+    transform: translateY(-3px);
+}
+
+/* Ajuste tamaño iconos */
+.btn-deezer i, 
+.btn-close-nice i {
+    font-size: 1.3rem;
+}

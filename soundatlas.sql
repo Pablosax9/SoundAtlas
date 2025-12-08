@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2025 a las 04:23:05
+-- Tiempo de generación: 08-12-2025 a las 11:58:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,16 +35,19 @@ CREATE TABLE `favoritos` (
   `titulo` varchar(255) NOT NULL,
   `imagen_url` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `lista_id` int(11) DEFAULT NULL
+  `lista_id` int(11) DEFAULT NULL,
+  `rating` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `favoritos`
 --
 
-INSERT INTO `favoritos` (`id`, `user_id`, `api_id`, `tipo`, `titulo`, `imagen_url`, `created_at`, `lista_id`) VALUES
-(1, 6, '3098841', 'cancion', 'Coldplay - Clocks', 'https://cdn-images.dzcdn.net/images/cover/5ba1787e1ec36dbbca38ff01fea8fb21/250x250-000000-80-0-0.jpg', '2025-11-27 01:30:52', NULL),
-(3, 6, '787090612', 'cancion', 'Lucky Chops - Funkytown / I Feel Good', 'https://cdn-images.dzcdn.net/images/cover/b676af7c2d025ae3ac1d34b200d05dfb/250x250-000000-80-0-0.jpg', '2025-11-27 01:51:49', 1);
+INSERT INTO `favoritos` (`id`, `user_id`, `api_id`, `tipo`, `titulo`, `imagen_url`, `created_at`, `lista_id`, `rating`) VALUES
+(1, 6, '3098841', 'cancion', 'Coldplay - Clocks', 'https://cdn-images.dzcdn.net/images/cover/5ba1787e1ec36dbbca38ff01fea8fb21/250x250-000000-80-0-0.jpg', '2025-11-27 01:30:52', NULL, 0),
+(3, 6, '787090612', 'cancion', 'Lucky Chops - Funkytown / I Feel Good', 'https://cdn-images.dzcdn.net/images/cover/b676af7c2d025ae3ac1d34b200d05dfb/250x250-000000-80-0-0.jpg', '2025-11-27 01:51:49', 1, 0),
+(5, 9, '3098841', 'cancion', 'Coldplay - Clocks', 'https://cdn-images.dzcdn.net/images/cover/5ba1787e1ec36dbbca38ff01fea8fb21/250x250-000000-80-0-0.jpg', '2025-11-27 19:58:49', NULL, 0),
+(6, 9, '1568013932', 'cancion', 'Universal Production Music - Boogie Body', 'https://cdn-images.dzcdn.net/images/cover/0078ba25e7c1e47d1366a3713fe00072/250x250-000000-80-0-0.jpg', '2025-11-27 19:59:13', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -77,7 +80,8 @@ CREATE TABLE `listas` (
 --
 
 INSERT INTO `listas` (`id`, `user_id`, `nombre`, `created_at`) VALUES
-(1, 6, 'Jazz', '2025-11-27 01:46:42');
+(1, 6, 'Jazz', '2025-11-27 01:46:42'),
+(3, 9, 'prueba', '2025-11-27 19:58:55');
 
 -- --------------------------------------------------------
 
@@ -99,7 +103,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `userName`, `userEmail`, `userPassword`, `created_at`) VALUES
 (5, 'carallo', 'carallo@gmail.com', '$2y$10$2tzz4m35aw194LD8VAFpDuim9EMns/dLX26paIQ9pi/mqVvj9SBpm', '2025-11-27 00:22:35'),
-(6, 'DJ Choeu', 'pablo@gmail.com', '$2y$10$0Htxr2WpKBRgwJoTqYxeMOABBk5SA/RgimULdT3teVeoeeZm0TdU.', '2025-11-27 00:32:50');
+(6, 'DJ Choeu', 'pablo@gmail.com', '$2y$10$0Htxr2WpKBRgwJoTqYxeMOABBk5SA/RgimULdT3teVeoeeZm0TdU.', '2025-11-27 00:32:50'),
+(9, 'prueba2', 'prueba@gmail.com', '$2y$10$r6rVFdk1jwVKLSSXiSCBbOMeyhweK1bAKpH/c.C4hflqfULHnxPOq', '2025-11-27 19:56:35'),
+(10, 'pruebafinal', 'pruebafinal@gmail.com', '$2y$10$f5SqEYj0MdP1o0lh90P3K.pIIuctvrtKeuk1CqVRrrcZ3tPtBnuN2', '2025-12-08 10:25:38');
 
 --
 -- Índices para tablas volcadas
@@ -141,7 +147,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_busquedas`
@@ -153,13 +159,13 @@ ALTER TABLE `historial_busquedas`
 -- AUTO_INCREMENT de la tabla `listas`
 --
 ALTER TABLE `listas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

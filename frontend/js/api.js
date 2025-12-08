@@ -1,12 +1,9 @@
-
-
-//1. VARIABLES Y SELECTORES
+// 1. VARIABLES Y SELECTORES
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const resultsContainer = document.querySelector('.grid-container'); 
 const sectionTitle = document.querySelector('.section-title h3'); 
 const btnMyLists = document.getElementById('btnMyLists');
-//Nav Links para gestionar la clase "active"
 const navLinks = document.querySelectorAll('.nav-links a');
 
 const DEEZER_API_URL = "https://api.deezer.com"; 
@@ -16,24 +13,25 @@ let tempSongData = {};
 let currentListId = null;   
 let currentListName = null; 
 
+// 0. UTILIDADES
 
-
-//0. UTILIDADES
-
-
-//Función para resaltar el menú activo
 function setActiveNav(id) {
     navLinks.forEach(link => link.classList.remove('active'));
     const activeLink = document.getElementById(id);
     if(activeLink) activeLink.classList.add('active');
 }
 
+function formatDuration(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+}
 
-//1. LÓGICA DE BÚSQUEDA
+// 1. LÓGICA DE BÚSQUEDA
 
 async function searchMusic(query) {
     if(!query) return;
-    setActiveNav(''); //Quitamos activo de otros
+    setActiveNav('');
     resultsContainer.innerHTML = '<p>Buscando en SoundAtlas...</p>';
     if(sectionTitle) sectionTitle.textContent = `Resultados para: "${query}"`;
 
@@ -46,30 +44,22 @@ async function searchMusic(query) {
     }
 }
 
-//Callback para BÚSQUEDA
 function handleDeezerResults(data) {
     renderSongCards(data.data);
 }
 
+// 2. NUEVAS SECCIONES
 
-
-//2. NUEVAS SECCIONES (TENDENCIAS, ARTISTAS, DESCUBRIR)
-
-
-//TENDENCIAS (Top Tracks Mundiales)
 function loadTrends() {
     setActiveNav('navTrends');
     resultsContainer.innerHTML = '<p>Cargando Top Mundial...</p>';
     if(sectionTitle) sectionTitle.textContent = "Tendencias Mundiales";
-
-    //Llamada a Deezer Charts
     const script = document.createElement('script');
     script.src = `${DEEZER_API_URL}/chart?output=jsonp&callback=handleTrendsResults`;
     document.body.appendChild(script);
 }
 
 function handleTrendsResults(data) {
-    //Deezer chart devuelve tracks, albums, artists. Usamos tracks.
     if(data.tracks && data.tracks.data) {
         renderSongCards(data.tracks.data);
     } else {
@@ -77,12 +67,10 @@ function handleTrendsResults(data) {
     }
 }
 
-//ARTISTAS (Top Artistas)
 function loadTopArtists() {
     setActiveNav('navArtists');
     resultsContainer.innerHTML = '<p>Cargando Artistas Top...</p>';
     if(sectionTitle) sectionTitle.textContent = "Artistas Más Escuchados";
-
     const script = document.createElement('script');
     script.src = `${DEEZER_API_URL}/chart/0/artists?output=jsonp&callback=handleArtistsResults`;
     document.body.appendChild(script);
@@ -91,14 +79,10 @@ function loadTopArtists() {
 function handleArtistsResults(data) {
     if(!data.data) return;
     resultsContainer.innerHTML = '';
-
     data.data.forEach(artist => {
         const card = document.createElement('div');
         card.classList.add('card');
-        
-        //Al hacer click en un artista, buscamos sus canciones
         card.onclick = () => searchMusic(artist.name);
-
         card.innerHTML = `
             <img src="${artist.picture_medium}" alt="${artist.name}" class="card-img" style="height:auto; width:100%; border-radius:50%;">
             <h4 style="text-align:center; margin-top:10px;">${artist.name}</h4>
@@ -108,12 +92,10 @@ function handleArtistsResults(data) {
     });
 }
 
-//DESCUBRIR (Géneros Musicales - Pantalla por defecto)
 function loadDiscovery() {
     setActiveNav('navDiscover');
     resultsContainer.innerHTML = '<p>Cargando géneros...</p>';
     if(sectionTitle) sectionTitle.textContent = "Explora por Géneros";
-
     const script = document.createElement('script');
     script.src = `${DEEZER_API_URL}/genre?output=jsonp&callback=handleGenreResults`;
     document.body.appendChild(script);
@@ -122,16 +104,11 @@ function loadDiscovery() {
 function handleGenreResults(data) {
     if(!data.data) return;
     resultsContainer.innerHTML = '';
-
     const genres = data.data.filter(g => g.id !== 0);
-
     genres.forEach(genre => {
         const card = document.createElement('div');
         card.classList.add('card');
-        
-        //Al clickar en género, buscamos canciones de ese estilo
         card.onclick = () => searchMusic(`genre:"${genre.name}"`);
-
         card.innerHTML = `
             <img src="${genre.picture_medium}" alt="${genre.name}" class="card-img" style="height:auto; width:100%; border-radius:10px;">
             <h4 style="text-align:center; margin-top:10px;">${genre.name}</h4>
@@ -140,7 +117,7 @@ function handleGenreResults(data) {
     });
 }
 
-// Función auxiliar para pintar canciones
+// Función auxiliar para pintar canciones (MODIFICADA CON BOTÓN INFO)
 function renderSongCards(songs) {
     if (!songs || songs.length === 0) {
         resultsContainer.innerHTML = '<p>No se encontraron resultados.</p>';
@@ -156,6 +133,7 @@ function renderSongCards(songs) {
         const safeArtist = item.artist.name.replace(/'/g, "\\'");
         const safeImg = item.album.cover_medium.replace(/'/g, "\\'");
 
+        // AÑADIDO: Botón Info
         card.innerHTML = `
             <img src="${item.album.cover_medium}" alt="${item.title}" class="card-img" style="height:auto; width:100%; border-radius:10px;">
             <h4>${item.title}</h4>
@@ -165,7 +143,11 @@ function renderSongCards(songs) {
                 <a href="${item.preview}" target="_blank" style="font-size:0.8rem; color:#9191bd; text-decoration:none;">
                     <i class='bx bx-play-circle'></i> Escuchar
                 </a>
-                <i class='bx bx-heart' style="cursor:pointer; font-size:1.2rem; color:#ccc;" 
+                
+                <i class='bx bx-info-circle' style="cursor:pointer; font-size:1.3rem; color:#555;" 
+                   onclick="showSongDetails('${item.id}')"></i>
+
+                <i class='bx bx-heart' style="cursor:pointer; font-size:1.3rem; color:#ccc;" 
                    onclick="toggleFavorite(this, '${item.id}', '${safeTitle}', '${safeArtist}', '${safeImg}')">
                 </i>
             </div>
@@ -173,8 +155,6 @@ function renderSongCards(songs) {
         resultsContainer.appendChild(card);
     });
 }
-
-
 
 // 3. LISTENERS GLOBALES
 
@@ -186,19 +166,13 @@ if(searchInput) {
         if (e.key === 'Enter') searchMusic(searchInput.value);
     });
 }
-//Cargar Descubrir por defecto al entrar
 window.addEventListener('load', () => {
-    // Solo si no venimos de un "Volver" interno
     if(resultsContainer.innerHTML.includes('background-color')) { 
-        // Si hay contenido estático HTML, cargamos descubrimiento real
         loadDiscovery();
     }
 });
 
-
-
-// 4.LÓGICA DE GUARDAR FAVORITO (MODAL)
-
+// 4. LÓGICA DE GUARDAR FAVORITO (MODAL)
 
 async function toggleFavorite(btn, api_id, title, artist, img) {
     const userId = localStorage.getItem("soundAtlas_userId");
@@ -275,10 +249,7 @@ if(btnConfirmSave){
     });
 }
 
-
-
-//5. GESTIÓN DE LISTAS(VISUALIZACIÓN)
-
+// 5. GESTIÓN DE LISTAS (VISUALIZACIÓN)
 
 if (btnMyLists) {
     btnMyLists.addEventListener('click', (e) => {
@@ -382,13 +353,24 @@ function displayFavorites(favorites) {
     favorites.forEach(item => {
         const card = document.createElement('div');
         card.classList.add('card');
+        const rating = item.rating || 0;
+
+        // AÑADIDO: Generar Estrellas
+        let stars = `<div style="text-align:center; margin:5px 0;">`;
+        for(let i=1; i<=5; i++) {
+            stars += `<i class='bx bxs-star' style="cursor:pointer; color:${i<=rating?'#FFD700':'#ccc'}; font-size:1.2rem;" onclick="rateSong(${item.id}, ${i})"></i>`;
+        }
+        stars += `</div>`;
+
+        // AÑADIDO: Info + Delete (usando api_id para info, id para delete)
         card.innerHTML = `
             <img src="${item.imagen_url}" alt="${item.titulo}" class="card-img" style="height:auto; width:100%; border-radius:10px;">
             <h4>${item.titulo}</h4>
-            <p>Guardado el: ${new Date(item.created_at).toLocaleDateString()}</p>
-            <div style="margin-top:10px; display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.8rem; color:#9191bd;">Favorito</span>
-                <i class='bx bxs-trash' style="cursor:pointer; font-size:1.2rem; color:#e74c3c;" title="Eliminar" onclick="deleteFavorite(${item.id})"></i>
+            <p>Guardado: ${new Date(item.created_at).toLocaleDateString()}</p>
+            ${stars}
+            <div style="margin-top:10px; display:flex; justify-content:space-around; align-items:center;">
+                <i class='bx bx-info-circle' style="cursor:pointer; font-size:1.4rem; color:#9191bd;" title="Detalles" onclick="showSongDetails('${item.api_id}')"></i>
+                <i class='bx bxs-trash' style="cursor:pointer; font-size:1.4rem; color:#e74c3c;" title="Eliminar" onclick="deleteFavorite(${item.id})"></i>
             </div>
         `;
         resultsContainer.appendChild(card);
@@ -407,4 +389,43 @@ async function deleteFavorite(favId) {
         if (data.status === "success") { loadFavorites(currentListId, currentListName); } 
         else { alert("Error: " + data.message); }
     } catch (err) { alert("Error conexión al borrar"); }
+}
+
+// 6. FUNCIONALIDADES NUEVAS (DETALLES Y RATING)
+
+function showSongDetails(deezerId) {
+    //Llamada JSONP a Deezer Track
+    const script = document.createElement('script');
+    script.src = `${DEEZER_API_URL}/track/${deezerId}?output=jsonp&callback=handleTrackDetails`;
+    document.body.appendChild(script);
+}
+
+function handleTrackDetails(track) {
+    if(track.error) { alert("No se pudieron cargar los detalles."); return; }
+
+    document.getElementById('detailImg').src = track.album.cover_medium;
+    document.getElementById('detailTitle').textContent = track.title;
+    document.getElementById('detailArtist').textContent = track.artist.name;
+    document.getElementById('detailAlbum').textContent = track.album.title;
+    document.getElementById('detailDuration').textContent = formatDuration(track.duration);
+    document.getElementById('detailDate').textContent = track.release_date;
+    document.getElementById('detailExplicit').textContent = track.explicit_lyrics ? 'Sí ⚠️' : 'No';
+    
+    document.getElementById('detailsModal').style.display = 'flex';
+}
+
+function closeDetailsModal() {
+    document.getElementById('detailsModal').style.display = 'none';
+}
+
+async function rateSong(favId, rating) {
+    const formData = new FormData();
+    formData.append('fav_id', favId);
+    formData.append('rating', rating);
+    try {
+        const res = await fetch("http://localhost/SoundAtlas/backend/api/update_rating.php", { method: "POST", body: formData });
+        const data = await res.json();
+        if (data.status === "success") { loadFavorites(currentListId, currentListName); }
+        else { alert("Error al valorar: " + data.message); }
+    } catch (err) { console.error(err); }
 }
